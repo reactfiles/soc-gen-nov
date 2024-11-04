@@ -16,8 +16,43 @@
        favnums.forEach(function(val, idx, arr){
         console.log(val);
        }) 
+      */
+       // favnums.forEach( val => console.log(val) );
+       /* 
+        let doubleFavNum = [];
+        favnums.forEach(function(val){
+            doubleFavNum.push(val * 2);
+        });
+        
+        console.log(favnums);
+        console.log("******************************");
+        console.log(doubleFavNum);
         */
-       // favnums.forEach( val => console.log(val) )
+
+        // map
+        let doubleFavNum = favnums.map(function(val){
+            return  val * 2 ;
+        });
+        
+        console.log(favnums);
+        console.log("******************************");
+        console.log(doubleFavNum);
+        
+        // some
+        console.log(favnums.some(val => val > 100));
+        // every
+        console.log(favnums.every(val => val < 100));
+        // filter
+        let lessThan50 = favnums.filter(val => val < 50);
+        console.log(lessThan50);
+        // reduce
+        let total = favnums.reduce(function(initval, val, idx, arr){
+            return initval + val;
+        }, 0);
+        console.log(total);
+        // indexOf
+        console.log(favnums.indexOf(7));
+        console.log(favnums.lastIndexOf(7));
     </script>
 </head>
 <body>
