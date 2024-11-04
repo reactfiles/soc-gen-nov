@@ -1,0 +1,12 @@
+Mithril Emmet  			v0.7.7 FallenMax
+open in browser 		v2.0.0 TechER 
+Prettier - Code formatter	v11.0.0	Prettier
+npm Intellisense		v1.4.5	Christian Kohler
+Auto Rename Tag			v0.1.10	Jun Han
+Live Server			v5.7.9	Ritwick Dey
+vscode-icons			v12.9.0	VSCode Icons Team
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Sapling				v1.2.0	team-sapling
+ES7+ React/Redux/React-Native snippets	v4.4.3	dsznajder
