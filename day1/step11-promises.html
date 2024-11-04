@@ -5,27 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promise</title>
     <script>
+        let favnums = [3,7,77,20,7,5,16,"ab",73,9,99,"vijay",54];
         let agree = true;
-
+        console.log("log from line 9")
         let promise = new Promise(function(resolve, reject){
             setTimeout(function(){
                 if(agree){
-                    resolve("promise was resolved");
+                    console.log("log from line 14");
+                    resolve(favnums);
                 }else{
+                    console.log("log from line 17");
                     reject("promise was rejected");
                 }
-            }, 4000)
+            }, 2000)
         });    
-
-        promise.then(function(message){
-            console.log(message)
-        });// resolved
-        promise.catch(function(error){
+        console.log("log from line 22");
+        promise
+        .then(function(message){
+            console.log(message);
+            console.log("log from line 26")
+            return message.filter(val =>( typeof val) === "number")
+        })
+        .then(function(number){
+            console.log(number)
+            console.log("log from line 31")
+            return number.reduce((initval, val) => initval+val)
+        })
+        .then(function(total){
+            console.log(total)
+            console.log("log from line 36")
+        })
+        .catch(function(error){
             console.log(error)
-        });// rejected
-        promise.finally(function(){
+        })
+        .finally(function(){
             console.log("promise is settled")
-        });// settled
+        });
     </script>
 </head>
 <body>
