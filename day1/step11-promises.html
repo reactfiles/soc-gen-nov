@@ -6,6 +6,8 @@
     <title>Promise</title>
     <script>
         let favnums = [3,7,77,20,7,5,16,"ab",73,9,99,"vijay",54];
+        let rawval = [];
+        let stringval = [];
         let agree = true;
         console.log("log from line 9")
         let promise = new Promise(function(resolve, reject){
@@ -23,6 +25,8 @@
         promise
         .then(function(message){
             console.log(message);
+            rawval = message;
+            stringval = message.filter(val =>( typeof val) === "string");
             console.log("log from line 26")
             return message.filter(val =>( typeof val) === "number")
         })
@@ -33,12 +37,13 @@
         })
         .then(function(total){
             console.log(total)
-            console.log("log from line 36")
+            console.log("log from line 36");
         })
         .catch(function(error){
             console.log(error)
         })
         .finally(function(){
+            console.log(rawval, stringval)
             console.log("promise is settled")
         });
     </script>
