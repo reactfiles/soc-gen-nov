@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Function</title>
+    <script>
+        // function declaration
+        /* 
+        function adder1(num1, num2){
+            return num1 + num2;
+        };  
+        */
+
+        // function expression
+        /* 
+        var adder2 = function(num1, num2){
+            return num1 + num2;
+        };  
+        */
+        /* 
+        var adder2 = (num1, num2) => {
+            return num1 + num2;
+        }; 
+        */ 
+        // var adder2 = (num1, num2) => num1 + num2 ; 
+
+        var adder2 = num1 => num1 + num1 ; 
+
+        console.log(adder2(5));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
