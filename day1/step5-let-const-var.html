@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // object
+        var hero = {
+            title : "Ironman",
+            power : 6
+        };
+
+        // function
+        function checkPower(){
+            // var tempTitle = undefined;
+            if(hero.power > 5){
+                const tempTitle = hero.title;
+                tempTitle = "Vijay";
+                hero.title = tempTitle+" is strong";
+                console.log(tempTitle);// ???
+            }
+        };
+        // var / let / const 
+        checkPower();
+
+        console.log(hero.title);// ??? 
+
+        /*  
+        for(var i = 0; i < 100; i++){
+            console.log(i);
+        };
+        console.log("value of i outside the loop", i); 
+        */
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
