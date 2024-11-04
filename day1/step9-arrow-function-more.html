@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Functions More</title>
+    <script>
+       /*  
+       var cart = {
+            name : "My Cart",
+            getCostPrice : function(){
+                console.log("getCostPrice ",this.name);
+                return 100;
+            },
+            getSellingPrice : function(){
+                var calculateProfit = function(scope){
+                    console.log("calculateProfit ",scope.name);
+                    return scope.getCostPrice() * 0.2;
+                }
+                console.log("getSellingPrice ",this.name);
+                return this.getCostPrice() + calculateProfit(this);
+            }
+        }; 
+        */
+       /*  var getCostPrice = function(){
+         return 10000;
+        } */
+        var cart = {
+            name : "My Cart",
+            getCostPrice : () => {
+                return 100;
+            },
+            getSellingPrice : function(){
+                var calculateProfit = () => {
+                    return this.getCostPrice() * 0.2;
+                }
+                return this.getCostPrice() + calculateProfit();
+            }
+        };
+        // console.log(cart.getCostPrice());
+        console.log(cart.getSellingPrice());// 120
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
