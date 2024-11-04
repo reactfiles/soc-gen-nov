@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Array Methods</title>
     <script>
-        let favnums = [3,7,77,20,7,5,16,73,9,99,54];
+        let favnums = [3,7,77,20,7,5,16,"ab",73,9,99,"vijay",54];
         /* 
         for(let i = 0; i < favnums.length; i++){
             console.log(favnums[i]);
@@ -30,29 +30,40 @@
         */
 
         // map
-        let doubleFavNum = favnums.map(function(val){
+       /*  let doubleFavNum = favnums.map(function(val){
             return  val * 2 ;
         });
         
         console.log(favnums);
         console.log("******************************");
-        console.log(doubleFavNum);
+        console.log(doubleFavNum); */
         
         // some
-        console.log(favnums.some(val => val > 100));
+       // console.log(favnums.some(val => val > 100));
         // every
-        console.log(favnums.every(val => val < 100));
+        //console.log(favnums.every(val => val < 100));
         // filter
-        let lessThan50 = favnums.filter(val => val < 50);
-        console.log(lessThan50);
+       /*  let lessThan50 = favnums.filter(val => val < 50);
+        console.log(lessThan50); */
         // reduce
-        let total = favnums.reduce(function(initval, val, idx, arr){
+        /* let total = favnums.reduce(function(initval, val, idx, arr){
             return initval + val;
-        }, 0);
-        console.log(total);
+        }, 0); */
+       /*  let total = favnums.reduce(function(initval, val, idx, arr){
+            return initval + val;
+        },0);
+        console.log(total); */
         // indexOf
+       /*  
         console.log(favnums.indexOf(7));
         console.log(favnums.lastIndexOf(7));
+        */
+        console.log(typeof favnums[7])
+        console.log(typeof favnums[6])
+        let total = favnums
+                        .filter(val =>( typeof val) === "number")
+                        .reduce((initval, val) => initval+val);
+        console.log(total);
     </script>
 </head>
 <body>
