@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring</title>
+    <script>
+        /* 
+        var hero = {
+            title : "Batman",
+            city : "Gotham",
+            power : 6
+        };
+
+        var temphero = hero;
+        temphero.power = 12;
+
+        console.log("temphero",temphero.power);// ??? 
+        console.log("hero",hero.power);// ??? 
+         */
+        var hero = {
+            title : "Batman",
+            city : "Gotham",
+            power : 6
+        };
+        /* 
+        var temphero = {};
+        temphero.title = hero.title;
+        temphero.city = hero.city;
+        temphero.power = hero.power;
+
+        temphero.power = 12; 
+        */
+       /* 
+       var tempherotitle = hero.title;
+       var tempherocity = hero.city;
+       var tempheropower = hero.power;
+       */
+        // var {title : tempherotitle, city : tempherocity, power : tempheropower} = hero;
+        var temphero = {...hero}; // spread syntax
+        temphero.power = 12; 
+        console.log("temphero",temphero.power);// ??? 
+        console.log("hero",hero.power);// ??? 
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
