@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+    <script>
+        let agree = true;
+
+        let promise = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                if(agree){
+                    resolve("promise was resolved");
+                }else{
+                    reject("promise was rejected");
+                }
+            }, 4000)
+        });    
+
+        promise.then(function(message){
+            console.log(message)
+        });// resolved
+        promise.catch(function(error){
+            console.log(error)
+        });// rejected
+        promise.finally(function(){
+            console.log("promise is settled")
+        });// settled
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
