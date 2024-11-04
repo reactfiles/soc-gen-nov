@@ -5,51 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classes</title>
     <script>
-            /* 
-            public property
-            private property 
-                getter
-                setter
-            static property 
+        /* 
+        public property
+        private property 
+            getter
+            setter
+        static property 
 
-            public method
-            private method 
-            static method 
+        public method
+        private method 
+        static method 
 
-            constructor
-                super()
-            */
-        class Hero{
-           title;
-           #firstname;
-           #lastname;
-           static version = 1001;
-           #power;
-           constructor(htitle, hfname, hlname, hpower){
-                super();
-                this.title = htitle;
-                this.#firstname = hfname;
-                this.#lastname = hlname;
-                this.#power = hpower;
-           }
-           fullname(){
-            return this.#firstname+" "+this.#lastname;
-           }
-           set power(npower){
-            this.#power = npower;
-           }
-           get power(){
-            return this.#power;
-           }
-        };
+        constructor
+            super()
+        */
+        
+        import { Hero } from "./modules/hero.js";
 
-        let hero = new Hero("Ironman","tony","stark",6);
+        let hero = new Hero("Ironman","tony","stark",6,"I Can Fly");
 
         console.log(hero.title);
         console.log(hero.fullname());
         console.log(hero.power);// getter
         hero.power = 10 ; // setter
         console.log(hero.power);// getter
+        console.log(hero.superpower);// 
         console.log(Hero.version);// getter
 
     </script>
