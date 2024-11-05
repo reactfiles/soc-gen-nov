@@ -13,10 +13,13 @@ class CompApp extends Component{
                     <h3>Number of Avengers : {this.avengers.length }</h3>
                     <label htmlFor="avenger">Enter a Name : </label>
                     <input id="avenger"/>
-                    <button>Add Avenger</button>
+                    <button onClick={this.clickHandler}>Add Avenger</button>
                     <hr/>
                     <div>{this.avengers.map((val, idx) => <p key={idx}>{ val }</p> )}</div>
                 </>
+    }
+    clickHandler(){
+        alert("you clicked the button")
     }
 } 
 
