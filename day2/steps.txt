@@ -1,44 +1,91 @@
-import React, { Component } from "react";
+app.jsx
+---------
 
-class ChildComp extends Component{
+
+import React, { Component } from "react";
+import ChildComp from "./child";
+
+class App extends Component{
     state = {
-        power : 0
+        appmessage : "Message from App Component"
     }
-   /*  
-   constructor(){
-        super();
-    } 
-    */
-   ipref = React.createRef();
+    ipref = React.createRef();
     render(){
         return <div>
-                    <h1>Events</h1>
-                    <h2>Power : {this.state.power}</h2>
-                    <button onClick={ this.addPower }>Increase Power</button>
-                    <button onClick={ () => this.reducePower() }>Decrease Power</button>
-                    <button onClick={ () => this.setPower() }>Set Power to 10</button>
-                    <input onChange={ this.powerRanger } type="range" />
-                    <br />
-                    <br />
-                    <input ref={this.ipref} type="number" />
-                    <button onClick={ this.powerNumber }>Set Power from Number</button>
-               </div>
+                    <input ref={this.ipref} type="text" />
+                    <button onClick={this.changeHandler}>Change Message</button>
+                    <hr />
+                    <ChildComp message={this.state.appmessage }/>
+                </div>
     }
-    addPower = () => {
-        this.setState({ power : this.state.power + 1 })
-    }
-    reducePower(){
-        this.setState({ power : this.state.power - 1 })
-    }
-    setPower(){
-        this.setState({ power : 10 })
-    }
-    powerRanger = (event) => {
-        this.setState({ power : Number(event.target.value) })
-    }
-    powerNumber = () => {
-        this.setState({ power : Number(this.ipref.current.value) })
+    changeHandler = () =>{
+        this.setState({
+            appmessage : this.ipref.current.value
+        })
     }
 }
 
+export default App;
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+child.jsx
+----------
+
+
+import React, { Component } from "react";
+import "./styles/childstyle.css";
+
+class ChildComp extends Component{
+    state = {
+        message : "welcome to your life"
+    }
+    render(){
+        /* return <div style={ { backgroundColor : "darkslategray", color : "whitesmoke", fontFamily: "sans-serif", padding : "10px" }  }> */
+        return <div className="box">
+                    <h1>Component Communication</h1>
+                    <h2>{ this.state.message }</h2>
+                    <input onChange={(evt)=> this.setState({ message : evt.target.value })} type="text" />
+                    <h2>Parent's Message : { this.props.message }</h2>
+               </div>
+    }
+
+}
+
 export default ChildComp;
+
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+childstyle.css
+--------------------
+
+.box{
+    background-color : rgba(26, 28, 78);
+    color :  whitesmoke;
+    font-family:  sans-serif; 
+    padding : 10px 
+}
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+main.jsx
+-----------
+import ReactDOM from "react-dom/client";
+import App from "./app";
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
