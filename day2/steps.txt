@@ -1,10 +1,11 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom/client";
 
 /* */
 
 class CompApp extends Component{
-    avengers = ['Ironman']
+    avengers = ['Ironman'];
+    ipref = React.createRef();
     render(){ {/* JSX : Java Script XML */}
     /*  React.Fragment or <> */
         return  <>
@@ -12,14 +13,17 @@ class CompApp extends Component{
                     <h2>Hello from React Application</h2>
                     <h3>Number of Avengers : {this.avengers.length }</h3>
                     <label htmlFor="avenger">Enter a Name : </label>
-                    <input id="avenger"/>
+                    <input ref={this.ipref} id="avenger"/>
                     <button onClick={this.clickHandler}>Add Avenger</button>
                     <hr/>
-                    <div>{this.avengers.map((val, idx) => <p key={idx}>{ val }</p> )}</div>
+                    <ol>{this.avengers.map((val, idx) => <li key={idx}>{ val }</li> )}</ol>
                 </>
     }
-    clickHandler(){
-        alert("you clicked the button")
+    clickHandler = () => {
+        // alert("you clicked the button")
+        this.avengers.push(this.ipref.current.value);
+        this.forceUpdate();
+        console.log(this.avengers);
     }
 } 
 
