@@ -1,43 +1,31 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom/client";
-
-/* */
-
 class CompApp extends Component{
-    avengers = ['Ironman'];
+    /*  */
+    state = {
+        avengers : ['Ironman'],
+        title : "My Avenger's App"
+    }
     ipref = React.createRef();
-    render(){ {/* JSX : Java Script XML */}
-    /*  React.Fragment or <> */
+    render(){
         return  <>
                     <h1 className="box">Class Component</h1>
-                    <h2>Hello from React Application</h2>
-                    <h3>Number of Avengers : {this.avengers.length }</h3>
+                    <h2>{ this.state.title }</h2>
+                    <h3>Number of Avengers : {this.state.avengers.length }</h3>
+                    <button onClick={()=> this.setState({ title : "Title is updated" })}>Change Title</button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <label htmlFor="avenger">Enter a Name : </label>
                     <input ref={this.ipref} id="avenger"/>
                     <button onClick={this.clickHandler}>Add Avenger</button>
                     <hr/>
-                    <ol>{this.avengers.map((val, idx) => <li key={idx}>{ val }</li> )}</ol>
+                    <ol>{this.state.avengers.map((val, idx) => <li key={idx}>{ val }</li> )}</ol>
                 </>
     }
     clickHandler = () => {
-        // alert("you clicked the button")
-        this.avengers.push(this.ipref.current.value);
-        this.forceUpdate();
-        console.log(this.avengers);
+        this.setState({
+            avengers : [...this.state.avengers, this.ipref.current.value ]
+        })
     }
 } 
-
-
-/* 
-let FunApp = function(){
-    return <div>
-                <h1>Function Component</h1>
-                <h2>Hello from React Application</h2>
-            </div>
-} 
-         
-*/
-
-ReactDOM.createRoot(document.getElementById("root")).render(<CompApp/>)
-// ReactDOM.createRoot(document.getElementById("root")).render(<FunApp/>)
 
