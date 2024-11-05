@@ -1,76 +1,44 @@
-app.jsx
-----------
-import { Component } from "react";
-// import Avengers from "./avengers";
-// import JusticeLeague from "./justiceleague";
-// import IndicHero from "./indicheroes";
-import Heroes from "./heroes";
+import React, { Component } from "react";
 
-class App extends Component{
+class ChildComp extends Component{
     state = {
-        avengers : ["Ironman","Black Widow", "Black Panther"],
-        justiceleague : ["Batman", "Superman" ,"Wonder Women"],
-        indicheroes : ["Krissh", "Phantom"]
+        power : 0
     }
+   /*  
+   constructor(){
+        super();
+    } 
+    */
+   ipref = React.createRef();
     render(){
         return <div>
-                   {/*  
-                    <Avengers version={1001} data={this.state.avengers} title="Avengers"/>
-                    <JusticeLeague version={2001} data={this.state.justiceleague} title="Justice League"/>
-                    <IndicHero version={3001} data={this.state.indicheroes} title="Indic Hereoes"/> 
-                    */}
-                    <Heroes version={1001} data={this.state.avengers} title="Avengers">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure laborum quasi harum optio quidem consectetur, in eius vel libero minus a, sint autem, eos aliquam obcaecati ratione temporibus! Nostrum, totam.
-                        </p>
-                        <button>Click Me Avenger</button>
-                    </Heroes>
-                    <Heroes version={2001} data={this.state.justiceleague} title="Justice League">
-                        <select name="" id="">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                        </select>
-                    </Heroes>
-                    <Heroes version={3001} data={this.state.indicheroes} title="Indic Heroes">
-                        <fieldset>
-                            <legend>Saga of Indian Heroes</legend>
-                            <p>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda corporis magni nam ea mollitia velit aspernatur reiciendis quidem quo praesentium consequatur asperiores voluptatum dolorem eaque, deserunt animi inventore cum nulla.
-                                Ratione quo unde quia assumenda, obcaecati error quos ab enim ipsa atque minima velit iste sint omnis est? Ea minima labore explicabo, delectus sed illo beatae libero reprehenderit corporis enim.
-                                Nostrum, ipsum alias distinctio ipsa iusto consequatur natus tempore accusantium. Totam corporis, necessitatibus temporibus quod quidem, consequatur assumenda magni vel earum animi delectus! Quas iste placeat temporibus, dolores inventore hic.
-                                Delectus magni accusamus, ipsa, tenetur ut placeat eveniet ducimus enim velit minus reiciendis soluta libero cumque voluptatem commodi rerum quaerat dolorum nam quibusdam non rem veritatis! Pariatur, in nobis! Quia!
-                                Laborum optio non ea! Quos porro quam asperiores atque at, dolore, eveniet obcaecati sapiente rem repellendus consequuntur facere quae nisi quibusdam ex assumenda labore, aliquam iste ut. Praesentium, suscipit iste.
-                            </p>
-                        </fieldset>
-                    </Heroes>
-                </div>
-    }
-}
-
-export default App;
-
-
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-heroes.jsx
-----------------
-import { Component } from "react";
-
-class Heroes extends Component{
-    render(){
-        return <div>
-                    <h1>{ this.props.title } Version is : { this.props.version } </h1>
-                    <ol>{ this.props.data.map((val, idx) => <li key={idx}>{ val }</li>) }</ol>
-                    <hr />
-                    { this.props.children }
+                    <h1>Events</h1>
+                    <h2>Power : {this.state.power}</h2>
+                    <button onClick={ this.addPower }>Increase Power</button>
+                    <button onClick={ () => this.reducePower() }>Decrease Power</button>
+                    <button onClick={ () => this.setPower() }>Set Power to 10</button>
+                    <input onChange={ this.powerRanger } type="range" />
+                    <br />
+                    <br />
+                    <input ref={this.ipref} type="number" />
+                    <button onClick={ this.powerNumber }>Set Power from Number</button>
                </div>
     }
+    addPower = () => {
+        this.setState({ power : this.state.power + 1 })
+    }
+    reducePower(){
+        this.setState({ power : this.state.power - 1 })
+    }
+    setPower(){
+        this.setState({ power : 10 })
+    }
+    powerRanger = (event) => {
+        this.setState({ power : Number(event.target.value) })
+    }
+    powerNumber = () => {
+        this.setState({ power : Number(this.ipref.current.value) })
+    }
 }
 
-export default Heroes;
-
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
+export default ChildComp;
