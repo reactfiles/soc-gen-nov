@@ -6,7 +6,8 @@
     <title>Virtual DOM</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- <script>
             /*         
             function init(){
             // virutal elements
@@ -32,7 +33,7 @@
         }
         document.addEventListener("DOMContentLoaded", init); 
         */
-       // React.createElement("tagname","arrtibutes","children")
+       // React.createElement("tagname","arrtibutes","children","expression1","expression2")
         let list  = React.createElement("ol",null,[
         React.createElement("li",null,"List Item 1"), 
         React.createElement("li",null,"List Item 2"), 
@@ -44,6 +45,50 @@
             ReactDOM.createRoot(document.getElementById("root")).render(list);
         }
         document.addEventListener("DOMContentLoaded", init); 
+    </script> -->
+    <script type="text/babel">
+        // Element
+        /* 
+        let element = <ol>
+                        <li>List Item Soc - Gen 1</li>
+                        <li>List Item Soc - Gen 2</li>
+                        <li>List Item Soc - Gen 3</li>
+                        <li>List Item Soc - Gen 4</li>
+                        <li>List Item Soc - Gen 5</li>
+                      </ol>; 
+        */
+        // Component
+        // Class Component
+        /* 
+        class ListComp extends React.Component{
+            render(){
+                return <article>
+                    <h2>{ this.props.branch }</h2>
+                            <ol>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                            </ol>
+                    </article>
+            }
+        } 
+        */
+       let ListComp = function(props){
+        return <article>
+                    <h2>{ props.branch }</h2>
+                    <h3>Function Component</h3>
+                            <ol>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                                <li>List Item</li>
+                            </ol>
+                    </article>;
+       }
+        ReactDOM.createRoot(document.getElementById("root")).render(<div> <ListComp branch="Bengaluru"/> <ListComp branch="Mumbai"/> <ListComp branch="Chennai"/> </div>);
     </script>
 </head>
 <body>
