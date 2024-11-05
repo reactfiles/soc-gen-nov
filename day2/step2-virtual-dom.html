@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual DOM</title>
+    <script>
+        function init(){
+            // virutal elements
+            var list = document.createElement("ol");
+            var listItem1 = document.createElement("li");
+                listItem1.textContent = "List Item 1"
+            var listItem2 = document.createElement("li");
+                listItem2.textContent = "List Item 2"
+            var listItem3 = document.createElement("li");
+                listItem3.textContent = "List Item 3"
+            var listItem4 = document.createElement("li");
+                listItem4.textContent = "List Item 4"
+            var listItem5 = document.createElement("li");
+                listItem5.textContent = "List Item 5";
+            // we create a composition  
+            list.appendChild(listItem1)
+                .appendChild(listItem2)
+                .appendChild(listItem3)
+                .appendChild(listItem4)
+                .appendChild(listItem5);
+            // append it to real dom
+            document.getElementById("root").appendChild(list);
+        }
+        document.addEventListener("DOMContentLoaded", init);
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
