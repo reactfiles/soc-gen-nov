@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+    <script type="module">
+        import { Hero } from "./modules/hero.js";
+        let hero = new Hero("Ironman","tony","stark",6,"I Can Fly");
+        console.log(hero.title);
+        console.log(hero.fullname());
+        console.log(hero.power);// getter
+        hero.power = 10 ; // setter
+        console.log(hero.power);// getter
+        console.log(hero.superpower);// 
+        console.log(Hero.version);// getter
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
