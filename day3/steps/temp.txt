@@ -1,6 +1,5 @@
 app.jsx
 ---------
-
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Home from "./components/home";
 import Batman from "./components/batman";
@@ -35,7 +34,7 @@ let App = () => {
                         <Route path="/batman/:pow" element={<Batman/>} />           {/* Parameter Route */}
                         <Route path="/superman" element={<Superman/>} />            {/* Named Route */}
                         <Route path="/flash" element={<Flash/>} />                  {/* Named Route */}
-                        <Route path="/wonderwomen" element={<Wonderwomen/>} />      {/* Named Route */}
+                        <Route path="/wonderwomen/:power" element={<Wonderwomen/>} />      {/* Named Route */}
                         <Route path="/greenarrow" element={<Batman/>} />            {/* Redirection Route */}
                         <Route path="*" element={<NotFound/>} />                    {/* Wildcard Route */}
                     </Routes>
@@ -51,14 +50,16 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 batman.jsx
 -----------
 
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 let Batman = () => {
-    let args = useParams()
+    let args = useParams();
+    let nav = useNavigate();
     return <div>
                 <h2>Batman Component</h2>
                 <h3>Welcome to Batman Page</h3>
                 <h3>Power : {args.pow}</h3>
+                <button onClick={() => nav("/wonderwomen/"+Math.round(Math.random() * 1000))} className="btn btn-primary">Navigate to Wonderwomen</button>
            </div>
 }
 
@@ -68,6 +69,24 @@ export default Batman
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+
+wonderwomen.jsx
+-----------
+
+import { useParams } from "react-router-dom";
+
+let Wonderwomen = () => {
+    let args = useParams();
+    return <div>
+                <h2>Wonder Women Component</h2>
+                <h3>Welcome to Wonder women Page</h3>
+                <h4>Quantity : { args.power }</h4>
+           </div>
+}
+
+export default Wonderwomen
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
 https://reactrouter.com/en/main
