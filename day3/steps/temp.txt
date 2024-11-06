@@ -1,93 +1,99 @@
 app.jsx
 ---------
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import Home from "./components/home";
-import React, { useState, Suspense} from "react";
+import GrandParentComp from "./components/grandparent"
 
 let App = () => {
-    let [batPower, setBatPower] = useState(0);
-    let BatComp = React.lazy(() => import("./components/batman"));
-    let SupComp = React.lazy(() => import("./components/superman"));
-    let WonderComp = React.lazy(() => import("./components/wonderwomen"));
-    let FlashComp = React.lazy(() => import("./components/flash"));
-    let NotFoundComp = React.lazy(() => import("./components/notfound"));
     return <div>
-                <h2>Soc Gen Application</h2>
-                <input type="range" onChange={(evt)=> setBatPower(evt.target.value)} />
-                <hr />
-                <BrowserRouter>
-                    <ul className="nav">
-                        <li className="nav-item"> <Link className="nav-link" to="/">Home</Link> </li>
-                        {/* <li className="nav-item"> <Link className="nav-link" to="/batman">Batman</Link> </li> */}
-                        <li className="nav-item"> <Link className="nav-link" to={'/batman/'+batPower} >Batman Param</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/superman">Superman</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/flash">Flash</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/wonderwomen/0">Wonder Women</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/cyborg">Cyborg</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/aquaman">Aquaman</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/greenarrow">Green Arrow</Link> </li>
-                    </ul>
-                    <hr />          
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>                         {/* Default Route */}
-                        <Route path="/batman" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />                {/* Named Route */}
-                        <Route path="/batman/:pow" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />           {/* Parameter Route */}
-                        <Route path="/superman" element={<Suspense fallback={<> Loading .... </>}> <SupComp/> </Suspense>} />            {/* Named Route */}
-                        <Route path="/flash" element={<Suspense fallback={<> Loading .... </>}> <FlashComp/> </Suspense>} />                  {/* Named Route */}
-                        <Route path="/wonderwomen/:power" element={<Suspense fallback={<> Loading .... </>}> <WonderComp/> </Suspense>} />      {/* Named Route */}
-                        <Route path="/greenarrow" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />            {/* Redirection Route */}
-                        <Route path="*" element={<Suspense fallback={<> Loading .... </>}><NotFoundComp/> </Suspense>} />                    {/* Wildcard Route */}
-                    </Routes>
-                </BrowserRouter>
+                <h2>State Management</h2>
+                <GrandParentComp/>
            </div>
 }
-
 export default App
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-batman.jsx
------------
+familcontext.js
+--------------
 
-import { useNavigate, useParams } from "react-router-dom"
+import React from "react";
 
-let Batman = () => {
-    let args = useParams();
-    let nav = useNavigate();
-    return <div>
-                <h2>Batman Component</h2>
-                <h3>Welcome to Batman Page</h3>
-                <h3>Power : {args.pow}</h3>
-                <button onClick={() => nav("/wonderwomen/"+Math.round(Math.random() * 1000))} className="btn btn-primary">Navigate to Wonderwomen</button>
-           </div>
-}
+let FamilyContext = React.createContext();
 
-export default Batman
+// Provider
+// Consumer
+// let Provider = FamilyContext.Provider;
+// let Consumer = FamilyContext.Consumer;
+// let SocGenContext = FamilyContext.displayName;
 
+export default FamilyContext;
 
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
-wonderwomen.jsx
+child.jsx
 -----------
 
-import { useParams } from "react-router-dom";
+import { useContext } from "react"
+import FamilyContext from "../context/familcontext"
 
-let Wonderwomen = () => {
-    let args = useParams();
-    return <div>
-                <h2>Wonder Women Component</h2>
-                <h3>Welcome to Wonder women Page</h3>
-                <h4>Quantity : { args.power }</h4>
+let ChildComp = () => {
+    let message = useContext(FamilyContext);
+    return <div style={ {border : "2px solid grey", padding : "10px" , margin : "10px" , fontFamily: "sans-serif"} }>
+                <h2>Child Component</h2>
+                <h3>Message is { message }</h3>
            </div>
 }
-
-export default Wonderwomen
+export default ChildComp
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
+
+parent.jsx
+-----------
+
+import ChildComp from "./child"
+
+let ParentComp = () => {
+    return <div style={ {border : "2px solid grey", padding : "10px" , margin : "10px" , fontFamily: "sans-serif"} }>
+                <h2>Parent Component</h2>
+                <ChildComp/>
+           </div>
+}
+export default ParentComp
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+grandparent.jsx
+-----------
+
+import FamilyContext from "../context/familcontext";
+import ParentComp from "./parent"
+import { useRef, useState } from "react";
+
+let GrandParentComp = () => {
+    let [message, setMessage] = useState("default message from grand parent");
+    let ipref = useRef();
+    let clickHandler = () => {
+        setMessage(ipref.current.value)
+    }
+    return <div style={ {border : "2px solid grey", padding : "10px" , margin : "10px" , fontFamily: "sans-serif"} }>
+                <h2>GrandParent Component</h2>
+                <h5>Message is {message}</h5>
+                <input ref={ipref} type="text" />
+                <button onClick={clickHandler}>Change Message</button>
+                <hr />
+                <FamilyContext.Provider value={message}>
+                    <ParentComp/>
+                </FamilyContext.Provider>
+           </div>
+}
+export default GrandParentComp
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 https://reactrouter.com/en/main
 
