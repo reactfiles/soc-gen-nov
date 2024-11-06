@@ -76,7 +76,6 @@ export default App
 
 child.jsx
 ----------
-
 import { Component } from "react";
 import axios from "axios";
 
@@ -107,9 +106,9 @@ class Child extends Component{
   // is used to make async calls
   componentDidMount(){
     axios.get('https://reqres.in/api/users?page=1')
-    .then(function (response) {
+    .then((response) => {
       // handle success
-      // console.log(response.data);
+      console.log(response.data);
       this.setState(function(){
         return {
           asyncData : response.data
