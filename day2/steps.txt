@@ -1,11 +1,18 @@
 app.jsx
 ---------
+import { useState } from "react"
 import ChildComp from "./child"
 
 let App = () => {
+    let [power, setPower ] = useState(0);
+    let [version, setVersion ] = useState(101);
+    let [show, setShow ] = useState(true);
     return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
                 <h2>App Component</h2>
-                <ChildComp/>
+                <input type="range" onChange={(evt)=> setPower(power = Number(evt.target.value) )} />
+                <button onClick={() => setVersion(Math.round(Math.random() * 500))}>Change Version</button>
+                <button onClick={()=> setShow(!show)}>Show / Hide</button>
+                { show && <ChildComp power={power} version={version}/> }
            </div>
 }
 
@@ -16,9 +23,11 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 child.jsx
 ---------
 
-let ChildComp = () => {
+let ChildComp = (props) => {
     return <div  style={ { border : "2px solid blue", padding  : "10px", fontFamily : "sans-serif" } }>
             <h3>Child Component</h3>
+            <h4>Power {props.power}</h4>
+            <h4>Version {props.version}</h4>
            </div>
 }
 
