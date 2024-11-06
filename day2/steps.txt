@@ -1,32 +1,25 @@
 app.jsx
 ---------
+import ChildComp from "./child"
 
-import React, { useState } from "react";
 let App = () => {
-    let [state, setState] = useState(0);
-    let [user, setUser] = useState({firstname : "Vijay", lastname:"Shivakumar"});
-    let [avengers, setAvengers] = useState([]);
-    let ipref = React.createRef();
-    let clickHandler = () => {
-        setAvengers([ ...avengers, ipref.current.value ]); 
-        ipref.current.value = ""; 
-        ipref.current.focus();
-    }
     return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
                 <h2>App Component</h2>
-                <h3>Power is {state}</h3>
-                <button onClick={()=> setState(state = state+1)}>Increase Power</button>
-                <hr />
-                <h3>{ user.firstname } { user.lastname }</h3>
-                <input onChange={(evt)=> setUser({ ...user, firstname : evt.target.value })} type="text" />
-                <br />
-                <br />
-                <input onChange={(evt)=> setUser({ ...user, lastname : evt.target.value })} type="text" />
-                <hr />
-                <input ref={ipref} type="text" />
-                <button onClick={clickHandler}> Add Avenger </button>
-                <ul>{ avengers.map((val, idx)=> <li key={idx}>{ val }</li>)}</ul>
-            </div>
+                <ChildComp/>
+           </div>
 }
 
 export default App
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+child.jsx
+---------
+
+let ChildComp = () => {
+    return <div  style={ { border : "2px solid blue", padding  : "10px", fontFamily : "sans-serif" } }>
+            <h3>Child Component</h3>
+           </div>
+}
+
+export default ChildComp;
