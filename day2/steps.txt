@@ -4,6 +4,7 @@ app.jsx
 
 import React, { Component, version } from "react";
 import ChildComp from "./child";
+import CousinComp from  "./cousin";
 
 class App extends Component{
     state = {
@@ -22,12 +23,18 @@ class App extends Component{
                     <hr />
                     <h3>App Version : { this.state.appversion }</h3>
                     <hr />
-                    <ChildComp version={this.state.childversion} message={this.state.appmessage }/>
+                    <ChildComp manageVersion={ this.changeAppVersion } version={this.state.childversion} message={this.state.appmessage }/>
+                    <CousinComp appversion={this.state.appversion}/>
                 </div>
     }
     changeHandler = () =>{
         this.setState({
             appmessage : this.ipref.current.value
+        })
+    }
+    changeAppVersion = (num) =>{
+        this.setState({
+            appversion :num
         })
     }
 }
@@ -58,6 +65,8 @@ class ChildComp extends Component{
                     <input onChange={(evt)=> this.setState({ message : evt.target.value })} type="text" />
                     <h2>Parent's Message : { this.props.message }</h2>
                     <h2>Parent's Version : { this.props.version }</h2>
+                    <hr />
+                    <input onChange={(evt)=> this.props.manageVersion(Number(evt.target.value))} type="number" />
                </div>
     }
 
@@ -68,5 +77,27 @@ export default ChildComp;
 
 
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+cousin.jsx
+----------
+
+import React, { Component } from "react";
+import "./styles/childstyle.css";
+
+class CousinComp extends Component{
+    render(){
+        return <div className="box">
+                    <h1>Cousin Component</h1>
+                    <h2>{ this.props.appversion }</h2>
+               </div>
+    }
+
+}
+
+export default CousinComp;
+
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
