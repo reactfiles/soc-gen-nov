@@ -2,15 +2,15 @@ app.jsx
 ---------
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Home from "./components/home";
-import Batman from "./components/batman";
-import Superman from "./components/superman";
-import Flash from "./components/flash";
-import Wonderwomen from "./components/wonderwomen";
-import NotFound from "./components/notfound";
-import { useState } from "react";
+import React, { useState, Suspense} from "react";
 
 let App = () => {
     let [batPower, setBatPower] = useState(0);
+    let BatComp = React.lazy(() => import("./components/batman"));
+    let SupComp = React.lazy(() => import("./components/superman"));
+    let WonderComp = React.lazy(() => import("./components/wonderwomen"));
+    let FlashComp = React.lazy(() => import("./components/flash"));
+    let NotFoundComp = React.lazy(() => import("./components/notfound"));
     return <div>
                 <h2>Soc Gen Application</h2>
                 <input type="range" onChange={(evt)=> setBatPower(evt.target.value)} />
@@ -22,7 +22,7 @@ let App = () => {
                         <li className="nav-item"> <Link className="nav-link" to={'/batman/'+batPower} >Batman Param</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/superman">Superman</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/flash">Flash</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/wonderwomen">Wonder Women</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to="/wonderwomen/0">Wonder Women</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/cyborg">Cyborg</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/aquaman">Aquaman</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/greenarrow">Green Arrow</Link> </li>
@@ -30,13 +30,13 @@ let App = () => {
                     <hr />          
                     <Routes>
                         <Route path="/" element={<Home/>}/>                         {/* Default Route */}
-                        <Route path="/batman" element={<Batman/>} />                {/* Named Route */}
-                        <Route path="/batman/:pow" element={<Batman/>} />           {/* Parameter Route */}
-                        <Route path="/superman" element={<Superman/>} />            {/* Named Route */}
-                        <Route path="/flash" element={<Flash/>} />                  {/* Named Route */}
-                        <Route path="/wonderwomen/:power" element={<Wonderwomen/>} />      {/* Named Route */}
-                        <Route path="/greenarrow" element={<Batman/>} />            {/* Redirection Route */}
-                        <Route path="*" element={<NotFound/>} />                    {/* Wildcard Route */}
+                        <Route path="/batman" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />                {/* Named Route */}
+                        <Route path="/batman/:pow" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />           {/* Parameter Route */}
+                        <Route path="/superman" element={<Suspense fallback={<> Loading .... </>}> <SupComp/> </Suspense>} />            {/* Named Route */}
+                        <Route path="/flash" element={<Suspense fallback={<> Loading .... </>}> <FlashComp/> </Suspense>} />                  {/* Named Route */}
+                        <Route path="/wonderwomen/:power" element={<Suspense fallback={<> Loading .... </>}> <WonderComp/> </Suspense>} />      {/* Named Route */}
+                        <Route path="/greenarrow" element={<Suspense fallback={<> Loading .... </>}><BatComp/></Suspense>} />            {/* Redirection Route */}
+                        <Route path="*" element={<Suspense fallback={<> Loading .... </>}><NotFoundComp/> </Suspense>} />                    {/* Wildcard Route */}
                     </Routes>
                 </BrowserRouter>
            </div>
