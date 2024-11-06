@@ -22,8 +22,46 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 child.jsx
 ---------
+import { useEffect } from "react";
 
+/* 
+lifecycle events
+----------------
+mounting
+update
+unmounting
+
+useEffect();
+
+*/
 let ChildComp = (props) => {
+   /* 
+   // mount
+    useEffect(()=>{
+       console.log("Component is mounted")
+    },[]);
+    
+    // update
+    useEffect(()=>{
+        console.log("power is updated", Math.random())
+    },[props.power]);
+
+    // unmounting
+    useEffect(()=>{
+        return () =>{
+            console.log("Component is un-mounted")
+        }
+    },[]); 
+    */
+
+    useEffect(()=>{
+        console.log("Component is mounted");
+        console.log("power is updated", Math.random())
+        return () =>{
+            console.log("Component is un-mounted")
+        }
+    },[props.power] )
+
     return <div  style={ { border : "2px solid blue", padding  : "10px", fontFamily : "sans-serif" } }>
             <h3>Child Component</h3>
             <h4>Power {props.power}</h4>
