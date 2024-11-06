@@ -21,3 +21,18 @@ https://reactrouter.com/en/main
 npm install react-router-dom
 
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+let Batman = () => {
+    return <div>
+                <h2>Batman Component</h2>
+           </div>
+}
+
+export default Batman
+
+home.jsx
+batman.jsx
+superman.jsx
+flash.jsx
+wonderwomen.jsx
