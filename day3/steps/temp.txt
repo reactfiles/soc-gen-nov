@@ -1,13 +1,13 @@
 app.jsx
 ---------
 
-
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Home from "./components/home";
 import Batman from "./components/batman";
 import Superman from "./components/superman";
 import Flash from "./components/flash";
 import Wonderwomen from "./components/wonderwomen";
+import NotFound from "./components/notfound";
 
 let App = () => {
     return <div>
@@ -20,14 +20,19 @@ let App = () => {
                         <li className="nav-item"> <Link className="nav-link" to="/superman">Superman</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/flash">Flash</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/wonderwomen">Wonder Women</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to="/cyborg">Cyborg</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to="/aquaman">Aquaman</Link> </li>
+                        <li className="nav-item"> <Link className="nav-link" to="/greenarrow">Green Arrow</Link> </li>
                     </ul>
                     <hr />          
                     <Routes>
-                        <Route path="/" element={<Home/>}/>{/* Default Route */}
-                        <Route path="/batman" element={<Batman/>} />
-                        <Route path="/superman" element={<Superman/>} />
-                        <Route path="/flash" element={<Flash/>} />
-                        <Route path="/wonderwomen" element={<Wonderwomen/>} />
+                        <Route path="/" element={<Home/>}/>                         {/* Default Route */}
+                        <Route path="/batman" element={<Batman/>} />                {/* Named Route */}
+                        <Route path="/superman" element={<Superman/>} />            {/* Named Route */}
+                        <Route path="/flash" element={<Flash/>} />                  {/* Named Route */}
+                        <Route path="/wonderwomen" element={<Wonderwomen/>} />      {/* Named Route */}
+                        <Route path="/greenarrow" element={<Batman/>} />            {/* Redirection Route */}
+                        <Route path="*" element={<NotFound/>} />                    {/* Wildcard Route */}
                     </Routes>
                 </BrowserRouter>
            </div>
