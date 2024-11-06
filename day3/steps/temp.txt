@@ -8,15 +8,19 @@ import Superman from "./components/superman";
 import Flash from "./components/flash";
 import Wonderwomen from "./components/wonderwomen";
 import NotFound from "./components/notfound";
+import { useState } from "react";
 
 let App = () => {
+    let [batPower, setBatPower] = useState(0);
     return <div>
                 <h2>Soc Gen Application</h2>
+                <input type="range" onChange={(evt)=> setBatPower(evt.target.value)} />
                 <hr />
                 <BrowserRouter>
                     <ul className="nav">
                         <li className="nav-item"> <Link className="nav-link" to="/">Home</Link> </li>
-                        <li className="nav-item"> <Link className="nav-link" to="/batman">Batman</Link> </li>
+                        {/* <li className="nav-item"> <Link className="nav-link" to="/batman">Batman</Link> </li> */}
+                        <li className="nav-item"> <Link className="nav-link" to={'/batman/'+batPower} >Batman Param</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/superman">Superman</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/flash">Flash</Link> </li>
                         <li className="nav-item"> <Link className="nav-link" to="/wonderwomen">Wonder Women</Link> </li>
@@ -28,6 +32,7 @@ let App = () => {
                     <Routes>
                         <Route path="/" element={<Home/>}/>                         {/* Default Route */}
                         <Route path="/batman" element={<Batman/>} />                {/* Named Route */}
+                        <Route path="/batman/:pow" element={<Batman/>} />           {/* Parameter Route */}
                         <Route path="/superman" element={<Superman/>} />            {/* Named Route */}
                         <Route path="/flash" element={<Flash/>} />                  {/* Named Route */}
                         <Route path="/wonderwomen" element={<Wonderwomen/>} />      {/* Named Route */}
@@ -39,6 +44,26 @@ let App = () => {
 }
 
 export default App
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+batman.jsx
+-----------
+
+import { useParams } from "react-router-dom"
+
+let Batman = () => {
+    let args = useParams()
+    return <div>
+                <h2>Batman Component</h2>
+                <h3>Welcome to Batman Page</h3>
+                <h3>Power : {args.pow}</h3>
+           </div>
+}
+
+export default Batman
+
 
 
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
