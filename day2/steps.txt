@@ -2,20 +2,27 @@ app.jsx
 ---------
 
 
-import React, { Component } from "react";
+import React, { Component, version } from "react";
 import ChildComp from "./child";
 
 class App extends Component{
     state = {
-        appmessage : "Message from App Component"
+        appmessage : "Message from App Component",
+        childversion : 1001,
+        appversion : 1
     }
     ipref = React.createRef();
     render(){
         return <div>
                     <input ref={this.ipref} type="text" />
                     <button onClick={this.changeHandler}>Change Message</button>
+                    <br />
+                    <label htmlFor="manage_version"></label>
+                    <input min={1001} max={1101} id="manage_version" onInput={(evt)=> this.setState({ childversion : Number(evt.target.value )})} type="range" />
                     <hr />
-                    <ChildComp message={this.state.appmessage }/>
+                    <h3>App Version : { this.state.appversion }</h3>
+                    <hr />
+                    <ChildComp version={this.state.childversion} message={this.state.appmessage }/>
                 </div>
     }
     changeHandler = () =>{
@@ -36,7 +43,6 @@ export default App;
 child.jsx
 ----------
 
-
 import React, { Component } from "react";
 import "./styles/childstyle.css";
 
@@ -51,6 +57,7 @@ class ChildComp extends Component{
                     <h2>{ this.state.message }</h2>
                     <input onChange={(evt)=> this.setState({ message : evt.target.value })} type="text" />
                     <h2>Parent's Message : { this.props.message }</h2>
+                    <h2>Parent's Version : { this.props.version }</h2>
                </div>
     }
 
@@ -58,32 +65,6 @@ class ChildComp extends Component{
 
 export default ChildComp;
 
-
-
-
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-childstyle.css
---------------------
-
-.box{
-    background-color : rgba(26, 28, 78);
-    color :  whitesmoke;
-    font-family:  sans-serif; 
-    padding : 10px 
-}
-
-
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-main.jsx
------------
-import ReactDOM from "react-dom/client";
-import App from "./app";
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>)
 
 
 
