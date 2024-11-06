@@ -10,8 +10,8 @@ let App = () => {
     return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
                 <h2>App Component</h2>
                 <input type="range" onChange={(evt)=> setPower(power = Number(evt.target.value) )} />
-                <button onClick={() => setVersion(Math.round(Math.random() * 500))}>Change Version</button>
-                <button onClick={()=> setShow(!show)}>Show / Hide</button>
+                <button className="btn btn-primary" onClick={() => setVersion(Math.round(Math.random() * 500))}>Change Version</button>
+                <button className="btn btn-primary" onClick={()=> setShow(!show)}>Show / Hide</button>
                 { show && <ChildComp power={power} version={version}/> }
            </div>
 }
@@ -42,7 +42,7 @@ let ChildComp = (props) => {
    // mount
     useEffect(()=>{
        // console.log("Component is mounted")
-       axios.get("https://reqres.in/api/users?page=2")
+       axios.get("https://reqres.in/api/users?page=1")
        .then( res => setUsers(res.data) )
        .catch(err => console.log("Error ", err))
     },[]);
@@ -75,7 +75,26 @@ let ChildComp = (props) => {
             <h4>Power {props.power}</h4>
             <h4>Version {props.version}</h4>
             <hr />
-            <ul>{users.data?.map(val =>  <li key={val.id}>{ val.first_name }</li> )}</ul>
+            {/* <ul>{users.data?.map(val =>  <li key={val.id}>{ val.first_name }</li> )}</ul> */}
+            <table className="table table-hover">
+                <thead className="table-dark">
+                    <tr>
+                        <th>Sl #</th>
+                        <th>Full Name</th>
+                        <th>eMail</th>
+                        <th>Profile Picture</th>
+                    </tr>
+                </thead>
+                <tbody>{ users.data?.map(val => <tr> 
+                    <td>{val.id}</td> 
+                    <td>{val.first_name+" "+val.last_name}</td> 
+                    <td>{val.email}</td> 
+                    <td> 
+                        <img className="rounded" src={val.avatar} alt={val.first_name} /> 
+                    </td> 
+                    </tr>)}
+                </tbody>
+            </table>
            </div>
 }
 
