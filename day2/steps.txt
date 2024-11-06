@@ -6,15 +6,66 @@ import { Component } from "react"
 import Child from "./child"
 
 class App extends Component{
+    state = {
+        title : "default title",
+        power : 0,
+        show : true
+    }
+//  Mounted
+    // configure your class component with state  
+    constructor(){
+        super();
+       /*  
+        this.state = {
+            title : "changed from constructor"
+        } 
+        */
+    }
+    // Derive the State or a component From Props recieved from parent
+    static getDerivedStateFromProps(compProp, compState){
+        // console.log(compProp, compState)
+        return {
+            title : compProp.arg
+        }
+    } 
+    // when the component is attached to the parent application
+    // is used to make async calls
+    componentDidMount(){
+        
+    }
+    // will validate the props recieved from the parent and decide to render or not to render
+    shouldComponentUpdate(){
+        return true 
+    }
+    // will take a backup of the state and the props and store for future use
+    getSnapshotBeforeUpdate(){
+        return {}
+    }
+    // when the component has agreed to use the props and re-render the component
+    componentDidUpdate(){
+        
+    }
+    // when the component has already removed from its parent
+    componentWillUnmount(){
+        
+    }
+  // when the component is mounted or updated it will render the view
   render(){
     return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
             <h2>App Component</h2>
-            <Child/>
+            <h3>{ this.state.title }</h3>
+            <button onClick={()=> this.setState({ power : this.state.power + 1 })}>Increase Power</button>
+            <label htmlFor="">Show / Hide</label>
+            <input checked={this.state.show} onChange={() => this.setState({ show : !this.state.show })} type="checkbox" />
+            <br />
+            <br />
+            { this.state.show ? <Child power={this.state.power} title="Random Title set from Parent"/> : "child is hidden"}
            </div>
   }
 }
 
 export default App
+
 
 
 
@@ -29,14 +80,65 @@ child.jsx
 import { Component } from "react"
 
 class Child extends Component{
+  state = {
+    title : "Child Title"
+  }
+  //  Mounted
+    // configure your class component with state  
+    constructor(){
+      super();
+     /*  
+      this.state = {
+          title : "changed from constructor"
+      } 
+      */
+  }
+  // Derive the State or a component From Props recieved from parent
+  static getDerivedStateFromProps(compProp, compState){
+      // console.log(compProp, compState)
+      // return true
+      return {
+          title : compProp.title
+      }
+  } 
+  // when the component is attached to the parent application
+  // is used to make async calls
+  componentDidMount(){
+      
+  }
+  // will validate the props recieved from the parent and decide to render or not to render
+  shouldComponentUpdate(compProp, compState){
+      console.log(compProp, compState);
+      if(compProp.power <= 10){
+        return true 
+      }else{
+        return false 
+      }
+  }
+  // will take a backup of the state and the props and store for future use
+  getSnapshotBeforeUpdate(){
+      return {}
+  }
+  // when the component has agreed to use the props and re-render the component
+  componentDidUpdate(){
+      
+  }
+  // when the component has already removed from its parent
+  componentWillUnmount(){
+      console.log("child is now unmounted")
+  }
   render(){
+    console.log("child is rendered",Math.random())
     return <div style={ { border : "2px solid blue", padding  : "10px", fontFamily : "sans-serif" } }>
-      <h2>Child Component</h2>
-    </div>
+            <h2>Child Component</h2>
+            <h3>{ this.state.title }</h3>
+            <h3>Power : { this.props.power }</h3>
+          </div>
   }
 }
 
 export default Child
+
 
 
 
@@ -52,12 +154,12 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <App />
+  <App arg={"main comp's message"} />
 )
 
 // app > child > grandchild
 
-/* 
+/*
 Mounted
     constructor()
     static getDerivedStateFromProps() // Derive the State or a component From Props recieved from parent
@@ -78,7 +180,6 @@ Error Handling
     static getDerivedStateFromError()
     componentDidCatch()
 */
-
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
