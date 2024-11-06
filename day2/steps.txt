@@ -2,44 +2,20 @@ app.jsx
 ---------
 
 
-import React, { Component, version } from "react";
-import ChildComp from "./child";
-import CousinComp from  "./cousin";
+import { Component } from "react"
+import Child from "./child"
 
 class App extends Component{
-    state = {
-        appmessage : "Message from App Component",
-        childversion : 1001,
-        appversion : 1
-    }
-    ipref = React.createRef();
-    render(){
-        return <div>
-                    <input ref={this.ipref} type="text" />
-                    <button onClick={this.changeHandler}>Change Message</button>
-                    <br />
-                    <label htmlFor="manage_version"></label>
-                    <input min={1001} max={1101} id="manage_version" onInput={(evt)=> this.setState({ childversion : Number(evt.target.value )})} type="range" />
-                    <hr />
-                    <h3>App Version : { this.state.appversion }</h3>
-                    <hr />
-                    <ChildComp manageVersion={ this.changeAppVersion } version={this.state.childversion} message={this.state.appmessage }/>
-                    <CousinComp appversion={this.state.appversion}/>
-                </div>
-    }
-    changeHandler = () =>{
-        this.setState({
-            appmessage : this.ipref.current.value
-        })
-    }
-    changeAppVersion = (num) =>{
-        this.setState({
-            appversion :num
-        })
-    }
+  render(){
+    return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
+            <h2>App Component</h2>
+            <Child/>
+           </div>
+  }
 }
 
-export default App;
+export default App
+
 
 
 
@@ -50,29 +26,18 @@ export default App;
 child.jsx
 ----------
 
-import React, { Component } from "react";
-import "./styles/childstyle.css";
+import { Component } from "react"
 
-class ChildComp extends Component{
-    state = {
-        message : "welcome to your life"
-    }
-    render(){
-        /* return <div style={ { backgroundColor : "darkslategray", color : "whitesmoke", fontFamily: "sans-serif", padding : "10px" }  }> */
-        return <div className="box">
-                    <h1>Component Communication</h1>
-                    <h2>{ this.state.message }</h2>
-                    <input onChange={(evt)=> this.setState({ message : evt.target.value })} type="text" />
-                    <h2>Parent's Message : { this.props.message }</h2>
-                    <h2>Parent's Version : { this.props.version }</h2>
-                    <hr />
-                    <input onChange={(evt)=> this.props.manageVersion(Number(evt.target.value))} type="number" />
-               </div>
-    }
-
+class Child extends Component{
+  render(){
+    return <div style={ { border : "2px solid blue", padding  : "10px", fontFamily : "sans-serif" } }>
+      <h2>Child Component</h2>
+    </div>
+  }
 }
 
-export default ChildComp;
+export default Child
+
 
 
 
@@ -80,23 +45,39 @@ export default ChildComp;
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-cousin.jsx
+main.jsx
 ----------
 
-import React, { Component } from "react";
-import "./styles/childstyle.css";
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
 
-class CousinComp extends Component{
-    render(){
-        return <div className="box">
-                    <h1>Cousin Component</h1>
-                    <h2>{ this.props.appversion }</h2>
-               </div>
-    }
+createRoot(document.getElementById('root')).render(
+  <App />
+)
 
-}
+// app > child > grandchild
 
-export default CousinComp;
+/* 
+Mounted
+    constructor()
+    static getDerivedStateFromProps() // Derive the State or a component From Props recieved from parent
+    render()
+    componentDidMount()
+
+Updated
+    static getDerivedStateFromProps()
+    shouldComponentUpdate()
+    render()
+    getSnapshotBeforeUpdate()
+    componentDidUpdate()
+
+Unmounted
+    componentWillUnmount()
+
+Error Handling
+    static getDerivedStateFromError()
+    componentDidCatch()
+*/
 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
