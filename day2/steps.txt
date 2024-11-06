@@ -2,37 +2,20 @@ app.jsx
 ---------
 
 import { useState } from "react";
-// import { Component } from "react";
-
-/* class App extends Component{
-  state = {power : 0}; 
-  // setState()
-  render(){
-    return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
-            <h2>App Component</h2>
-            <h3> { this.state.power } </h3>
-           </div>
-  }
-} */
-
-// hooks
 let App = () => {
-    // console.log(useState());
     let [state, setState] = useState(0);
+    let [user, setUser] = useState({firstname : "Vijay", lastname:"Shivakumar"});
     return <div style={ { border : "2px solid red", padding  : "10px", fontFamily : "sans-serif" } }>
                 <h2>App Component</h2>
                 <h3>Power is {state}</h3>
                 <button onClick={()=> setState(state = state+1)}>Increase Power</button>
+                <hr />
+                <h3>{ user.firstname } { user.lastname }</h3>
+                <input onChange={(evt)=> setUser({ ...user, firstname : evt.target.value })} type="text" />
+                <br />
+                <br />
+                <input onChange={(evt)=> setUser({ ...user, lastname : evt.target.value })} type="text" />
             </div>
 }
 
 export default App
-/* 
-forceUpdate
-call a function after the state is updated
-lifecycle events
-higher order components
-error handling with lifecycle
-*/
-
-
